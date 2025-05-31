@@ -1,5 +1,9 @@
 package model
 
 type Directory struct {
-	Entries []string
+	Entries []DirectoryEntry
+}
+
+type DirectoryEntry struct {
+	Name string
 }
