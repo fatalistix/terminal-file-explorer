@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/fatalistix/terminal-file-explorer/internal/service"
 	"log"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -9,7 +10,13 @@ import (
 )
 
 func main() {
-	app := tea.NewProgram(tui.NewModel(), tea.WithAltScreen())
+	s, err := service.NewStateHolder(".")
+	m, err := tui.NewRootModel(s)
+	if err != nil {
+		log.Fatal("error running app: ", err)
+	}
+
+	app := tea.NewProgram(m, tea.WithAltScreen())
 	if _, err := app.Run(); err != nil {
 		log.Fatal("error running app: ", err)
 	}
